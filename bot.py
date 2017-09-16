@@ -12,7 +12,7 @@ token_secret = 'Kvjb6lRgoRLi3uMAqGYHZXoAptg0BNjpJ34yHdMgqiAiY'
 consumer_key = 'PkFAE5amTwFrL5qtfeWhi3P7O'
 consumer_secret = 'iuc2x07qFC4gN7W7OYMIe0hMn1bbjOtvVEF9Z7MMKXrIuY4IiR'
 
-MAX_FETCH_SIZE = 500
+MAX_BATCH_SIZE = 50
 
 
 class SinceDbError(Exception):
@@ -80,7 +80,7 @@ def main():
         max_id = None
         full_batch = []
         while True:
-            kwargs = {}
+            kwargs = {'count': 20}
             if since_id:
                 kwargs['since_id'] = since_id
             if max_id:
@@ -94,10 +94,12 @@ def main():
                 break
 
             full_batch.extend(batch)
-            if len(full_batch) > MAX_FETCH_SIZE:
-                log.info('Ending batch fetch cycle because we hit max fetch size')
+            if len(full_batch) > MAX_BATCH_SIZE:
+                log.info('Ending batch fetch cycle because we hit max fetch size %d', MAX_BATCH_SIZE)
                 break
+
             max_id = batch[0]['id'] - 1
+            log.info('max_id is now: %s', max_id)
 
         log.info('Full batch size: %d', len(full_batch))
 
