@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
+import json
 import logging
 import os
 import shelve
 import sys
+import time
 from twitter import OAuth, Twitter
 
 
@@ -12,7 +14,7 @@ token_secret = 'Kvjb6lRgoRLi3uMAqGYHZXoAptg0BNjpJ34yHdMgqiAiY'
 consumer_key = 'PkFAE5amTwFrL5qtfeWhi3P7O'
 consumer_secret = 'iuc2x07qFC4gN7W7OYMIe0hMn1bbjOtvVEF9Z7MMKXrIuY4IiR'
 
-MAX_BATCH_SIZE = 50
+MAX_BATCH_SIZE = 400
 
 
 class SinceDbError(Exception):
@@ -50,8 +52,12 @@ class SinceDb():
 
 def process_tweet(tweet):
     log = logging.getLogger(__name__)
-    log.debug('Processing tweet: %s', tweet)
-    if tweet['text'].endswith('?'):
+    log.debug('Processing tweet: %s', json.dumps(tweet))
+    tweet_text = tweet['text']
+    for url in tweet['entities']['urls']:
+        tweet_text = tweet['text'].replace(url['url'], '')
+
+    if tweet_text.strip().endswith('?'):
         log.info('Would retweet: %s', tweet)
 
 
@@ -80,7 +86,7 @@ def main():
         max_id = None
         full_batch = []
         while True:
-            kwargs = {'count': 20}
+            kwargs = {'count': 200}
             if since_id:
                 kwargs['since_id'] = since_id
             if max_id:
@@ -98,7 +104,7 @@ def main():
                 log.info('Ending batch fetch cycle because we hit max fetch size %d', MAX_BATCH_SIZE)
                 break
 
-            max_id = batch[0]['id'] - 1
+            max_id = batch[-1]['id'] - 1
             log.info('max_id is now: %s', max_id)
 
         log.info('Full batch size: %d', len(full_batch))
