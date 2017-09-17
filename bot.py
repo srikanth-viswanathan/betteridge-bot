@@ -82,15 +82,22 @@ def should_retweet(tweet):
 
 
 def retweet(tweet):
+    log = logging.getLogger(__name__)
+
     link = 'https://twitter.com/{screen_name}/status/{id}'.format(
         screen_name=tweet['user']['screen_name'],
         id=tweet['id']
     )
-    t.statuses.update
+
+    log.info('Posting tweet: %s', tweet)
+    tweet = 'No. {link}'.format(link=link)
+    t.statuses.update(status=tweet)
+    log.info('Successfully posting tweet')
 
 
 def process_batch(batch):
     log = logging.getLogger(__name__)
+
     retweeted = 0
     with SinceDb() as since_db:
         # Process batch in reverse order
