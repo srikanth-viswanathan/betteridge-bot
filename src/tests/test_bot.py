@@ -1,4 +1,4 @@
-import bot
+from .. import bot
 import json
 import unittest
 
