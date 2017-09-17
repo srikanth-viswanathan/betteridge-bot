@@ -52,7 +52,8 @@ class App(object):
         log.info('Full batch size: %d', len(full_batch))
         self.process_batch(full_batch)
 
-    def should_retweet(self, tweet):
+    @staticmethod
+    def should_retweet(tweet):
         log = logging.getLogger(__name__)
 
         if tweet['user']['screen_name'] == BOT_NAME:
