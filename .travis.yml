@@ -7,5 +7,5 @@
     - "3.7"
     - nightly
   script:
-    - "nosetests && pylint"
+    - "nosetests && pylint src/"
 
