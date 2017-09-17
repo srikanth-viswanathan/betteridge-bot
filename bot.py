@@ -7,6 +7,7 @@ import os
 import re
 import shelve
 import sys
+import time
 from twitter import OAuth, Twitter
 
 
@@ -154,7 +155,9 @@ def main():
 
     with shelve.open(args.credentials) as credentials:
         bot = App(**credentials)
-        bot.run()
+        while True:
+            bot.run()
+            time.sleep(120)
 
 
 if __name__ == '__main__':
