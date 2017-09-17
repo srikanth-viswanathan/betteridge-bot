@@ -66,7 +66,7 @@ class App(object):
 
         log.debug('tweet_text: %s', tweet_text)
 
-        possible_beginnings = ('is', 'are', 'could', 'would', 'should', 'will')
+        possible_beginnings = ('is', 'are', 'could', 'would', 'should', 'will', 'has', 'have', 'does')
         if tweet_text.endswith('?'):
             parts = re.split('\.|:|;', tweet_text)
             log.debug(parts)

@@ -28,11 +28,6 @@ Then, run the bot using the credentials file:
 
 TBD
 
-### Todos
-
- - Write MORE Tests
- - Add additional parsing of twitter cards so we can parse beyond just the tweet text
-
 License
 ----
 
