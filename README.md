@@ -1,11 +1,11 @@
 Betteridge's Bot
 
-betteridge-bot is a bot that tries to honor Betterige's Law by posting 'No' in response to headlines that are posed as questions. The output can be seen on twitter (here)[https://twitter.com/betteridge_bot]
+betteridge-bot is a bot that tries to honor Betterige's Law by posting 'No' in response to headlines that are posed as questions. The output can be seen on twitter [here](https://twitter.com/betteridge_bot)
 
 
 ### Tech
 
-This bot uses the awesome (python-twitter)[https://pypi.python.org/pypi/twitter] library to get and post tweets.
+This bot uses the awesome [python-twitter](https://pypi.python.org/pypi/twitter) library to get and post tweets.
 
 ### Running the bot
 
