@@ -3,4 +3,5 @@
     - 3
     - nightly
   script:
-    - nosetests
+    - "nosetests && pylint"
+

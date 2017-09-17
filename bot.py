@@ -17,7 +17,7 @@ MAX_BATCH_SIZE = 800
 class App(object):
     def __init__(self, access_token, access_token_secret, consumer_key, consumer_secret):
         self.twitter = Twitter(
-             auth=OAuth(access_token, access_token_secret, consumer_key, consumer_secret), retry=10)
+            auth=OAuth(access_token, access_token_secret, consumer_key, consumer_secret), retry=10)
 
     def run(self):
         log = logging.getLogger(__name__)
@@ -68,7 +68,7 @@ class App(object):
 
         possible_beginnings = ('is', 'are', 'could', 'would', 'should', 'will', 'has', 'have', 'does')
         if tweet_text.endswith('?'):
-            parts = re.split('\.|:|;', tweet_text)
+            parts = re.split(r'\.|:|;', tweet_text)
             log.debug(parts)
             last_part = parts[-1]
             log.debug('last part: %s', last_part)
@@ -99,12 +99,11 @@ class App(object):
         with SinceDb() as since_db:
             # Process batch in reverse order
             for tweet in reversed(batch):
-                id = tweet['id']
                 if self.should_retweet(tweet):
                     self.retweet(tweet)
                     retweeted += 1
 
-                since_db.set(id)
+                since_db.set(tweet['id'])
 
         log.info('Retweeted %d tweets', retweeted)
 
@@ -143,7 +142,7 @@ class SinceDb():
 
 
 def main():
-    logging.basicConfig(filename='bot.log',level=logging.DEBUG)
+    logging.basicConfig(filename='bot.log', level=logging.DEBUG)
     log = logging.getLogger(__name__)
     stdout_handler = logging.StreamHandler(sys.stdout)
     stdout_handler.setLevel(logging.INFO)
