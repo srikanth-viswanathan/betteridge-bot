@@ -9,11 +9,6 @@ import sys
 from twitter import OAuth, Twitter
 
 
-token = '908692479431421953-ZxEdzlXblAlQmhoeZRIAWDBVlyOGJLK'
-token_secret = 'Kvjb6lRgoRLi3uMAqGYHZXoAptg0BNjpJ34yHdMgqiAiY'
-consumer_key = 'PkFAE5amTwFrL5qtfeWhi3P7O'
-consumer_secret = 'iuc2x07qFC4gN7W7OYMIe0hMn1bbjOtvVEF9Z7MMKXrIuY4IiR'
-
 BOT_NAME = 'betteridge_bot'
 MAX_BATCH_SIZE = 800
 
