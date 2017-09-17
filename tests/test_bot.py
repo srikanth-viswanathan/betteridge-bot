@@ -125,6 +125,6 @@ class TestBot(unittest.TestCase):
     "place": null,
     "lang": "en"
 }'''
-        self.assertTrue(bot.should_retweet(json.loads(test_tweet)))
+        self.assertTrue(bot.App.should_retweet(json.loads(test_tweet)))
 
 
