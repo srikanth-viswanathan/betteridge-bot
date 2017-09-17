@@ -1,0 +1,4 @@
+[MASTER]
+reports=no
+disable=bad-builtin,logging-not-lazy,broad-except,logging-format-interpolation,relative-import,fixme,global-statement,C,R
+ignored-classes=SQLObject,LookupDict,dict,ServiceNameHandler,_socketobject
