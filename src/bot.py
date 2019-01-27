@@ -5,9 +5,11 @@ import json
 import logging
 import os
 import re
+import requests
 import shelve
 import sys
 import time
+import twitter
 from twitter import OAuth, Twitter
 
 
@@ -88,9 +90,14 @@ class App(object):
             id=tweet['id']
         )
 
-        log.info('Posting tweet: %s', tweet)
         tweet = 'No. {link}'.format(link=link)
-        self.twitter.statuses.update(status=tweet)
+        log.info('Posting tweet: %s', tweet)
+        try:
+            self.twitter.statuses.update(status=tweet)
+        except twitter.api.TwitterHTTPError:
+            log.exception('Error posting tweet: ')
+            return
+
         log.info('Successfully posting tweet')
 
     def process_batch(self, batch):
@@ -156,8 +163,13 @@ def main():
     with shelve.open(args.credentials) as credentials:
         bot = App(**credentials)
         while True:
-            bot.run()
-            time.sleep(120)
+            try:
+                bot.run()
+            except Exception:
+              log.exception('Error during run(): ')
+            finally:
+                # So we don't spin if run() always throws an exception
+                time.sleep(120)
 
 
 if __name__ == '__main__':
