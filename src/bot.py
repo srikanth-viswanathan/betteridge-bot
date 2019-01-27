@@ -16,6 +16,10 @@ from twitter import OAuth, Twitter
 BOT_NAME = 'betteridge_bot'
 MAX_BATCH_SIZE = 800
 
+class RetweetError(Exception):
+    pass
+
+
 class App(object):
     def __init__(self, access_token, access_token_secret, consumer_key, consumer_secret):
         self.twitter = Twitter(
@@ -96,7 +100,7 @@ class App(object):
             self.twitter.statuses.update(status=tweet)
         except twitter.api.TwitterHTTPError:
             log.exception('Error posting tweet: ')
-            return
+            raise RetweetError()
 
         log.info('Successfully posting tweet')
 
@@ -108,8 +112,12 @@ class App(object):
             # Process batch in reverse order
             for tweet in reversed(batch):
                 if self.should_retweet(tweet):
-                    self.retweet(tweet)
-                    retweeted += 1
+                    try:
+                        self.retweet(tweet)
+                    except RetweetError:
+                        pass
+                    else:
+                        retweeted += 1
 
                 since_db.set(tweet['id'])
 
