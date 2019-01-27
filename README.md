@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/srikanth-viswanathan/betteridge-bot.svg?branch=master)](https://travis-ci.org/srikanth-viswanathan/betteridge-bot)
 
-betteridge-bot is a bot that tries to honor Betterige's Law by posting 'No' in response to headlines that are posed as questions. The output can be seen on twitter [here](https://twitter.com/betteridge_bot).
+betteridge-bot is a bot that tries to honor Betteridge's Law by posting 'No' in response to headlines that are posed as questions. The output can be seen on twitter [here](https://twitter.com/betteridge_bot).
 
 
 ### Tech
