@@ -15,9 +15,9 @@ First, generate a credentials file using the `generate_credentials.py` script. L
 
 ```
 ./generate_credentials.py --access_token yourtoken \
-                          --access_token_key yourtokenkey \
+                          --access_token_secret yourtokensecret \
                           --consumer_key yourconsumerkey  \
-                          --consumer_seret yourconsumersecret \
+                          --consumer_secret yourconsumersecret \
                           --output credentials.dat
 ```
 
