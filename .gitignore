@@ -99,3 +99,7 @@ ENV/
 
 # Ideavim
 *.idea
+
+# Custom
+access.tok
+access.secret
